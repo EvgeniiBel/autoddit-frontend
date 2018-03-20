@@ -1,0 +1,8 @@
+@import url(../node_modules/@fortawesome/fontawesome-free-webfonts/css/fontawesome.css);
+@import url(../node_modules/@fortawesome/fontawesome-free-webfonts/css/fa-regular.css);
+@import url(../node_modules/@fortawesome/fontawesome-free-webfonts/css/fa-solid.css);
+@import url(../node_modules/@fortawesome/fontawesome-free-webfonts/css/fa-brands.css);
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif; }
