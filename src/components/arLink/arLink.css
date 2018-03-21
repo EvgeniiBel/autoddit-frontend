@@ -1,10 +1,28 @@
 .ar-link {
-  margin: 0 0 8px;
+  margin: 8px 0 8px;
   padding-left: 3px;
   display: flex;
   justify-content: start; }
   .ar-link a {
     text-decoration: none; }
+  .ar-link__voiter .votes-count {
+    color: #c6c6c6; }
+  .ar-link__voiter .arrow {
+    margin: 2px 0px 0px 0px;
+    height: 14px;
+    display: block;
+    cursor: pointer;
+    background-position: center center;
+    background-repeat: no-repeat;
+    width: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    outline: none;
+    background-image: url(../../assets/images/sprite-reddit.png); }
+    .ar-link__voiter .arrow.up {
+      background-position: -42px -1647px; }
+    .ar-link__voiter .arrow.down {
+      background-position: 0px -1647px; }
   .ar-link__image {
     display: flex;
     align-items: center;
@@ -13,6 +31,11 @@
     margin: 0 5px 2px 0;
     overflow: hidden;
     width: 70px; }
+    .ar-link__image.empty {
+      background-image: url(../../assets/images/sprite-reddit.png);
+      background-position: 0px -448px;
+      background-repeat: no-repeat;
+      background-size: 70px 851px; }
   .ar-link__wrapper {
     display: flex;
     flex-direction: column;

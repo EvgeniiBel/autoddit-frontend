@@ -1,7 +1,7 @@
 @import "../../styles/colors.scss";
 
 .ar-link{
-  margin: 0 0 8px;
+  margin: 8px 0 8px;
   padding-left: 3px;
   display: flex;
   justify-content: start;
@@ -10,7 +10,32 @@
     text-decoration: none;
   }
 
-  &__voter {
+  &__voiter {
+    .votes-count {
+      color: $ar-link-votes-grey-color;
+    }
+
+    .arrow {
+      margin: 2px 0px 0px 0px;
+      height: 14px;
+      display: block;
+      cursor: pointer;
+      background-position: center center;
+      background-repeat: no-repeat;
+      width: 15px;
+      margin-left: auto;
+      margin-right: auto;
+      outline: none;
+      background-image: url(../../assets/images/sprite-reddit.png);
+
+      &.up {
+        background-position: -42px -1647px;
+      }
+
+      &.down {
+        background-position: 0px -1647px;
+      }
+    }
 
   }
 
@@ -22,6 +47,13 @@
     margin: 0 5px 2px 0;
     overflow: hidden;
     width: 70px;
+
+    &.empty {
+      background-image: url(../../assets/images/sprite-reddit.png);
+      background-position: 0px -448px;
+      background-repeat: no-repeat;
+      background-size: 70px 851px;
+    }
   }
 
   &__wrapper {

@@ -1,16 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 import './arLink.css';
 
 const ArLink = (props) => (
     <div className="ar-link">
         <div className="ar-link__voiter">
-            <div><i className="fas fa-arrow-up"></i></div>
-            <div>{props.votes}</div>
-            <div><i className="fas fa-arrow-down"></i></div>
+            <div className="arrow up"></div>
+            <div className="votes-count">{props.votes}</div>
+            <div className="arrow down"></div>
         </div>
-        <div className="ar-link__image">
-            <img src={props.imageUrl}/>
+        <div className={cn('ar-link__image',{empty:!props.imageUrl})}>
+            {!props.imageUrl && <img src={props.imageUrl}/>}
         </div>
         <div className="ar-link__wrapper">
             <div className="ar-link__wrapper__title">
@@ -39,7 +40,7 @@ ArLink.propTypes = {
 
 ArLink.defaultProps = {
     title: 'Full moon rising over Mount Hood',
-    imageUrl: 'null',
+    imageUrl: null,
     submittedData: 'Jan 22, 2017 08:43',
     username: 'Charlie',
     votes: 22,
