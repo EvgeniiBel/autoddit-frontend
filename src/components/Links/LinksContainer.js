@@ -16,6 +16,9 @@ const mapDispatchToProps = dispatch => {
         getLinks: () => {
             dispatch({type: types.LINKS_STATE_TYPES.GET_LINKS_LIST});
         },
+        getCommentsForLink: (payload) => {
+            dispatch({type: types.LINKS_STATE_TYPES.GET_COMMENTS_FOR_LINK, payload});
+        },
         voteForLink: (payload) => {
             dispatch({type: types.LINKS_STATE_TYPES.VOTE_FOR_LINK, payload});
         }

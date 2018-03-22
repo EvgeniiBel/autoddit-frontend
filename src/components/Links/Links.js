@@ -15,7 +15,12 @@ class Main extends Component {
         return (
             <div className="main">
                 {links && links.length > 0 && <div className="links-list">
-                    {links.map((link, index) => <ArLink key={`${link.submittedData}${index}`} {...link} vote={this.props.voteForLink}/>)}
+                    {links.map((link, index) =>
+                        <ArLink key={`${link.submittedData}${index}`}
+                                {...link}
+                                index={index}
+                                vote={this.props.voteForLink}
+                                getComments={this.props.getCommentsForLink}/> )}
                 </div>}
             </div>
         );

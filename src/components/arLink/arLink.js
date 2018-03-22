@@ -30,6 +30,9 @@ class ArLink extends PureComponent {
     };
 
     toggleComments = () => {
+        if (this.props.comments.length !== this.props.commentsCount) {
+            this.props.getComments({id:this.props.id, index:this.props.index});
+        }
         this.setState({
             isExpanded: !this.state.isExpanded
         });
@@ -62,7 +65,7 @@ class ArLink extends PureComponent {
                         Submitted on {this.props.submittedData} by {this.props.username}
                     </div>
                     <div className="ar-link__wrapper__comments">
-                        <a onClick={this.toggleComments}>{this.props.comments && this.props.comments.length} comments </a>
+                        <a onClick={this.toggleComments}>{this.props.commentsCount} comments </a>
                     </div>
                     {!!this.props.comments && this.props.comments.length > 0 &&
                     (<div className={cn('ar-link__wrapper__children', {'expanded': this.state.isExpanded})}>
@@ -79,17 +82,21 @@ class ArLink extends PureComponent {
 }
 
 ArLink.propTypes = {
+    id:PropTypes.number.isRequired,
+    index:PropTypes.number.isRequired,
     title: PropTypes.string,
     imageUrl: PropTypes.string,
     submittedData: PropTypes.string,
     username: PropTypes.string,
     comments: PropTypes.arrayOf(PropTypes.object),
+    commentsCount: PropTypes.number,
     votes: PropTypes.arrayOf(PropTypes.shape({
         value: PropTypes.number,
         username: PropTypes.string
     })),
     link: PropTypes.string,
-    vote: PropTypes.func
+    vote: PropTypes.func,
+    getComments: PropTypes.func
 };
 
 ArLink.defaultProps = {
@@ -100,8 +107,9 @@ ArLink.defaultProps = {
     votes: [],
     link: '/12',
     comments: [],
-    vote: function () {
-    }
+    commentsCount:2,
+    vote: function () {},
+    getComments: function () {}
 };
 
 export default ArLink;
