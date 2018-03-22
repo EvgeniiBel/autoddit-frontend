@@ -6,6 +6,7 @@
   .ar-link a {
     text-decoration: none; }
   .ar-link__voiter .votes-count {
+    text-align: center;
     color: #c6c6c6; }
   .ar-link__voiter .arrow {
     height: 14px;

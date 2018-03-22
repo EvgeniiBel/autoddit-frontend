@@ -1,6 +1,13 @@
 import * as types from './LinksActionTypes';
 import {LinksState} from './LinksState';
 
+function sum(obj) {
+    return Object.keys( obj )
+        .reduce( function( sum, key ){
+            return sum + parseFloat( obj[key] );
+        }, 0 );
+}
+
 export default function (state = new LinksState(), action) {
     switch (action.type) {
         case types.LINKS_STATE_TYPES.SET_IN_PROGRESS:
@@ -9,9 +16,15 @@ export default function (state = new LinksState(), action) {
             console.log(action.payload);
             return Object.assign({}, state, {linksList: action.payload});
         case types.LINKS_STATE_TYPES.SET_COMMENTS_FOR_LINK:
-            let list = [...state.linksList];
-            list[action.payload.metadata.index].comments = action.payload.comments;
-            return Object.assign({}, state, {linksList: list});
+            let list1 = [...state.linksList];
+            list1[action.payload.metadata.index].comments = action.payload.comments;
+            return Object.assign({}, state, {linksList: list1});
+        case types.LINKS_STATE_TYPES.VOTE_FOR_LINK_SUCCESS:
+            let {value, login, index} = action.payload;
+            let list2 = [...state.linksList];
+            list2[index].votes[login] = value;
+            list2[index].votesCount = sum(list2[index].votes);
+            return Object.assign({}, state, {linksList: list2});
         default:
             return state;
     }

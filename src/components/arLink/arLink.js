@@ -13,8 +13,11 @@ class ArLink extends PureComponent {
         };
     }
 
-    vote = (value) => {
-        this.props.vote({value, id:this.props.id, login:this.props.login});
+    vote = (value, myVote) => {
+        if (value === myVote) {
+            value = 0;
+        }
+        this.props.vote({value, id:this.props.id, login:this.props.login, index:this.props.index});
     };
 
     toggleComments = () => {
@@ -34,12 +37,12 @@ class ArLink extends PureComponent {
                 <div className="ar-link__voiter">
                     <div className={cn('arrow up', {
                         'upmod': myVote === 1
-                    })} onClick={() => this.vote(1)}>
+                    })} onClick={() => this.vote(1, myVote)}>
                     </div>
                     <div className="votes-count">{this.props.votesCount}</div>
                     <div className={cn('arrow down', {
                         'downmod': myVote === -1
-                    })} onClick={() => this.vote(-1)}>
+                    })} onClick={() => this.vote(-1, myVote)}>
                     </div>
                 </div>
                 <div className={cn('ar-link__image', {empty: !this.props.imageUrl})}>

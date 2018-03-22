@@ -31,7 +31,7 @@ function* voteForLink (action) {
     try {
         console.log('voteForLink');
         console.log(action);
-        const response = yield call(HttpApi.post, `${linkURL}/${action.payload.id}`, {value:action.payload.value, login:action.payload.login});
+        yield call(HttpApi.post, `${linkURL}/${action.payload.id}`, {value:action.payload.value, login:action.payload.login});
         yield put({type: types.LINKS_STATE_TYPES.VOTE_FOR_LINK_SUCCESS, payload:action.payload});
         //set
     } catch (e) {
