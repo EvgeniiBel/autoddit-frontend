@@ -13,25 +13,13 @@ class ArLink extends PureComponent {
         };
     }
 
-    componentWillMount() {
-        let myVote = this.props.votes.find((vote) => vote.username === this.props.username);
-        if (myVote) {
-            this.setState({
-                voteStatus: myVote.value
-            });
-
-        }
-    }
-
-    vote = (status) => {
-        this.setState({
-            voteStatus: status !== this.state.voteStatus ? status : null
-        });
+    vote = (value) => {
+        this.props.vote({value, id:this.props.id, login:this.props.login});
     };
 
     toggleComments = () => {
         if (this.props.comments.length !== this.props.commentsCount) {
-            this.props.getComments({id:this.props.id, index:this.props.index});
+            this.props.getComments({id: this.props.id, index: this.props.index});
         }
         this.setState({
             isExpanded: !this.state.isExpanded
@@ -39,18 +27,18 @@ class ArLink extends PureComponent {
     };
 
     render() {
-        let myVote = this.props.votes.find((vote) => vote.username === this.props.username);
+        let myVote = this.props.votes[this.props.login];
 
         return (
             <div className="ar-link">
                 <div className="ar-link__voiter">
                     <div className={cn('arrow up', {
-                        'upmod': myVote && myVote.value === 1
+                        'upmod': myVote === 1
                     })} onClick={() => this.vote(1)}>
                     </div>
-                    <div className="votes-count">{this.props.votes.length}</div>
+                    <div className="votes-count">{this.props.votesCount}</div>
                     <div className={cn('arrow down', {
-                        'downmod': myVote && myVote.value === -1
+                        'downmod': myVote === -1
                     })} onClick={() => this.vote(-1)}>
                     </div>
                 </div>
@@ -82,18 +70,17 @@ class ArLink extends PureComponent {
 }
 
 ArLink.propTypes = {
-    id:PropTypes.number.isRequired,
-    index:PropTypes.number.isRequired,
+    id: PropTypes.number.isRequired,
+    index: PropTypes.number.isRequired,
+    login: PropTypes.string.isRequired,
     title: PropTypes.string,
     imageUrl: PropTypes.string,
     submittedData: PropTypes.string,
     username: PropTypes.string,
     comments: PropTypes.arrayOf(PropTypes.object),
     commentsCount: PropTypes.number,
-    votes: PropTypes.arrayOf(PropTypes.shape({
-        value: PropTypes.number,
-        username: PropTypes.string
-    })),
+    votes: PropTypes.object,
+    votesCount:PropTypes.number,
     link: PropTypes.string,
     vote: PropTypes.func,
     getComments: PropTypes.func
@@ -105,11 +92,14 @@ ArLink.defaultProps = {
     submittedData: 'Jan 22, 2017 08:43',
     username: 'Charlie',
     votes: [],
+    votesCount:0,
     link: '/12',
     comments: [],
-    commentsCount:2,
-    vote: function () {},
-    getComments: function () {}
+    commentsCount: 2,
+    vote: function () {
+    },
+    getComments: function () {
+    }
 };
 
 export default ArLink;

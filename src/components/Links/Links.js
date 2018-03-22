@@ -11,7 +11,7 @@ class Main extends Component {
     }
 
     render() {
-        let {links} = this.props;
+        let {login, links, voteForLink, getCommentsForLink} = this.props;
         return (
             <div className="main">
                 {links && links.length > 0 && <div className="links-list">
@@ -19,8 +19,9 @@ class Main extends Component {
                         <ArLink key={`${link.submittedData}${index}`}
                                 {...link}
                                 index={index}
-                                vote={this.props.voteForLink}
-                                getComments={this.props.getCommentsForLink}/> )}
+                                login={login}
+                                vote={voteForLink}
+                                getComments={getCommentsForLink}/> )}
                 </div>}
             </div>
         );

@@ -9,7 +9,7 @@ function json(response) {
 class FetchApi {
     /*
     * Method for requesting fetch query from server
-    * @param: OPTIONS
+    * @param: url
 
     * @return: Promise<FetchResult>
      */
@@ -20,14 +20,16 @@ class FetchApi {
 
     /*
     * Method for requesting graphQL mutation from server
-    * @param: OPTIONS (fetch query object)
+    * @param: url (fetch query object)
+    * @param: body (fetch query object)
     *   action: String
     *
     * @return: Promise<FetchResult>
      */
-    post = (options) => {
-        const httpOptions = Object.assign({method:'POST', body:options});
-        return this.request(httpOptions);
+    post = (url, body) => {
+        const httpOptions = Object.assign({method:'POST', body, url});
+        return this.request(httpOptions)
+            .then(json);
     };
 
     request = (options) => {
@@ -39,7 +41,7 @@ class FetchApi {
                 "Content-Type": "application/json"
             }
         };
-        return fetch(envConfig.serverFetchUrl, config);
+        return fetch(`${envConfig.serverFetchUrl}${options.url}`, config)
     };
 }
 

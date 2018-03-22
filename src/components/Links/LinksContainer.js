@@ -7,7 +7,7 @@ import Links from './Links';
 const mapStateToProps = state => {
     return {
         links: state.LinksReducer.linksList,
-        username: state.LoginReducer.username
+        login: state.LoginReducer.login
     }
 };
 

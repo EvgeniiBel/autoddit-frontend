@@ -1,5 +1,5 @@
 export class LoginState {
     constructor() {
-        this.username = null;
+        this.login = null;
     }
 }

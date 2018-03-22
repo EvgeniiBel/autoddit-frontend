@@ -9,11 +9,9 @@ export default function (state = new LinksState(), action) {
             console.log(action.payload);
             return Object.assign({}, state, {linksList: action.payload});
         case types.LINKS_STATE_TYPES.SET_COMMENTS_FOR_LINK:
-            console.log(action.payload);
             let list = [...state.linksList];
             list[action.payload.metadata.index].comments = action.payload.comments;
             return Object.assign({}, state, {linksList: list});
-            // return Object.assign({}, state, {linksList: action.payload});
         default:
             return state;
     }
