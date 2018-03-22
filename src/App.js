@@ -8,6 +8,7 @@ import createSagaMiddleware from 'redux-saga';
 import {Layout} from './components/Layout';
 import {Links, LinksReducer, LinksSaga} from './components/Links';
 import {Login, LoginReducer} from './components/Login';
+import {Main} from './components/Main';
 
 //create store
 const AppReducers = combineReducers({
@@ -29,8 +30,7 @@ class App extends Component {
             <div className="App">
                 <Provider store={store}>
                     <Layout>
-                        <Login/>
-                        <Links/>
+                        <Main/>
                     </Layout>
                 </Provider>
             </div>

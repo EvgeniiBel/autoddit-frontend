@@ -30,12 +30,17 @@ class Login extends Component {
         }
     };
 
+    setLogin = () => {
+        this.props.setLogin(this.state.login);
+        this.props.history.push('links');
+    };
+
     render() {
         return (
             <div className="login">
                 <h1>Please, input your name for continue</h1>
                 <input type="text" onInput={this.inputName}/>
-                <button disabled={!this.state.isActiveSave} onClick={() => this.props.setLogin(this.state.login)}>Save</button>
+                <button disabled={!this.state.isActiveSave} onClick={this.setLogin}>Save</button>
                 {this.props.login}
             </div>
         );

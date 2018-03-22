@@ -7,6 +7,9 @@ class Main extends Component {
     }
 
     componentDidMount() {
+        if (!this.props.login) {
+            this.props.history.push('login');
+        }
         this.props.getLinks();
     }
 
