@@ -1,35 +1,38 @@
 import React, {Component} from 'react';
-import logo from './logo.svg';
 import './App.css';
 
-import {ArLink} from './components/arLink';
-import {ArComment} from './components/arComment';
+import {Provider} from "react-redux";
+import {applyMiddleware, createStore, combineReducers} from 'redux';
+import createSagaMiddleware from 'redux-saga';
 
-const comments = [
-    {
-        username:'Jenya',
-        commentText: 'Developer',
-        comments:[{
-            username:'Yuval',
-            commentText: 'SEO'
-        }]
-    },
-    {
-        username:'Greg',
-        commentText: 'Teamleader'
-    }
-];
+import {Layout} from './components/Layout';
+import {Links, LinksReducer, LinksSaga} from './components/Links';
+import {Login, LoginReducer} from './components/Login';
+
+//create store
+const AppReducers = combineReducers({
+    LinksReducer,
+    LoginReducer
+});
+
+const sagaMiddleware = createSagaMiddleware();
+const store = createStore(
+    AppReducers,
+    applyMiddleware(sagaMiddleware)
+);
+sagaMiddleware.run(LinksSaga);
+
 
 class App extends Component {
     render() {
         return (
             <div className="App">
-                <header className="App-header">
-                    <h1 className="App-title">Welcome to Autodesc Reddit</h1>
-                </header>
-                <div className="App-intro">
-                    <ArLink comments={comments}/>
-                </div>
+                <Provider store={store}>
+                    <Layout>
+                        <Login/>
+                        <Links/>
+                    </Layout>
+                </Provider>
             </div>
         );
     }

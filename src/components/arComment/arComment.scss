@@ -38,6 +38,7 @@
   &__wrapper {
     display: flex;
     flex-direction: column;
+    align-items: start;
     padding-left: 8px;
 
     &__username {
@@ -69,6 +70,8 @@
       max-width: 55em;
       margin-top: 5px;
       margin-bottom: 5px;
+      white-space: pre-wrap;
+      text-align: left;
     }
   }
 }

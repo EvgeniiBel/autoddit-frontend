@@ -3,15 +3,24 @@ import PropTypes from 'prop-types';
 import cn from 'classnames';
 import './arLink.css';
 
-import {ArComment} from '../arComment'
+import {ArComment} from '../arComment';
 
 class ArLink extends PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            voteStatus: null,
             isExpanded: false
         };
+    }
+
+    componentWillMount() {
+        let myVote = this.props.votes.find((vote) => vote.username === this.props.username);
+        if (myVote) {
+            this.setState({
+                voteStatus: myVote.value
+            });
+
+        }
     }
 
     vote = (status) => {
@@ -27,16 +36,20 @@ class ArLink extends PureComponent {
     };
 
     render() {
+        let myVote = this.props.votes.find((vote) => vote.username === this.props.username);
+
         return (
             <div className="ar-link">
                 <div className="ar-link__voiter">
                     <div className={cn('arrow up', {
-                        'upmod': this.state.voteStatus === 'up'
-                    })} onClick={() => this.vote('up')}></div>
-                    <div className="votes-count">{this.props.votes}</div>
+                        'upmod': myVote && myVote.value === 1
+                    })} onClick={() => this.vote(1)}>
+                    </div>
+                    <div className="votes-count">{this.props.votes.length}</div>
                     <div className={cn('arrow down', {
-                        'downmod': this.state.voteStatus === 'down'
-                    })} onClick={() => this.vote('down')}></div>
+                        'downmod': myVote && myVote.value === -1
+                    })} onClick={() => this.vote(-1)}>
+                    </div>
                 </div>
                 <div className={cn('ar-link__image', {empty: !this.props.imageUrl})}>
                     {!this.props.imageUrl && <img src={this.props.imageUrl}/>}
@@ -52,11 +65,11 @@ class ArLink extends PureComponent {
                         <a onClick={this.toggleComments}>{this.props.comments && this.props.comments.length} comments </a>
                     </div>
                     {!!this.props.comments && this.props.comments.length > 0 &&
-                    (<div className={cn('ar-link__wrapper__children', {'expanded':this.state.isExpanded})}>
-                            {this.props.comments.map((comment, index) => <ArComment key={`${comment.username}${index}`}
-                                                                             username={comment.username}
-                                                                             commentText={comment.commentText}
-                                                                             comments={comment.comments}/>)}
+                    (<div className={cn('ar-link__wrapper__children', {'expanded': this.state.isExpanded})}>
+                        {this.props.comments.map((comment, index) => <ArComment key={`${comment.username}${index}`}
+                                                                                username={comment.username}
+                                                                                commentText={comment.commentText}
+                                                                                comments={comment.comments}/>)}
                     </div>)
                     }
                 </div>
@@ -71,7 +84,10 @@ ArLink.propTypes = {
     submittedData: PropTypes.string,
     username: PropTypes.string,
     comments: PropTypes.arrayOf(PropTypes.object),
-    votes: PropTypes.number,
+    votes: PropTypes.arrayOf(PropTypes.shape({
+        value: PropTypes.number,
+        username: PropTypes.string
+    })),
     link: PropTypes.string,
     vote: PropTypes.func
 };
@@ -81,7 +97,7 @@ ArLink.defaultProps = {
     imageUrl: null,
     submittedData: 'Jan 22, 2017 08:43',
     username: 'Charlie',
-    votes: 22,
+    votes: [],
     link: '/12',
     comments: [],
     vote: function () {
