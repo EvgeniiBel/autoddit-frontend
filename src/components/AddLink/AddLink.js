@@ -8,7 +8,7 @@ class AddLink extends Component {
         }
     }
 
-    submit = values => {
+    submit = (values) => {
         let {title, link, imageUrl} = values;
         let {username} = this.props;
         this.props.addLink({

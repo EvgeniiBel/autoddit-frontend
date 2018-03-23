@@ -10,7 +10,8 @@ import {LinksReducer, LinksSaga} from './components/Links';
 import {LoginReducer} from './components/Login';
 import {Main} from './components/Main';
 
-import { reducer as formReducer } from 'redux-form'
+import {reducer as formReducer} from 'redux-form';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 
 //create store
@@ -33,9 +34,11 @@ class App extends Component {
         return (
             <div className="App">
                 <Provider store={store}>
-                    <Layout>
-                        <Main/>
-                    </Layout>
+                    <MuiThemeProvider>
+                        <Layout>
+                            <Main/>
+                        </Layout>
+                    </MuiThemeProvider>
                 </Provider>
             </div>
         );

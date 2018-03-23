@@ -26,11 +26,25 @@ export default function (state = new LinksState(), action) {
             list2[index].votesCount = sum(list2[index].votes);
             return Object.assign({}, state, {linksList: list2});
         case types.LINKS_STATE_TYPES.ADD_LINK_SUCCESS:
-            console.log(action);
             let list3 = [...state.linksList];
             list3.push(action.payload);
             console.log(list3);
             return Object.assign({}, state, {linksList: list3});
+        case types.LINKS_STATE_TYPES.ADD_COMMENT_SUCCESS:
+            console.log('link reducer');
+            console.log(action.payload);
+            let list4 = [...state.linksList];
+            let {linkIndex, parentWay} = action.payload.metadata;
+            let link = list4[linkIndex];
+            link.commentsCount++;
+            console.log(link);
+            if (!parentWay) {
+                if (!link.comments) {
+                    link.comments = [];
+                }
+                link.comments.push(action.payload.comment)
+            }
+            return Object.assign({}, state, {linksList: list4});
         default:
             return state;
     }

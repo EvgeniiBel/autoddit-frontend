@@ -53,7 +53,9 @@ class ArComment extends PureComponent {
                         {this.props.comments.map((comment, index) => <ArComment key={`${comment.username}${index}`}
                                                                                 username={comment.username}
                                                                                 commentText={comment.commentText}
-                                                                                comments={comment.comments}/>)}
+                                                                                comments={comment.comments}
+                                                                                vote={this.props.vote}
+                                                                                addComment={this.props.addComment}/>)}
                     </div>)
                     }
                 </div>
@@ -68,7 +70,8 @@ ArComment.propTypes = {
     submittedData: PropTypes.string,
     score:PropTypes.number,
     comments: PropTypes.arrayOf(PropTypes.object),
-    vote: PropTypes.func
+    vote: PropTypes.func,
+    addComment: PropTypes.func
 };
 
 ArComment.defaultProps = {
@@ -77,6 +80,8 @@ ArComment.defaultProps = {
     comments: null,
     score:null,
     vote: function () {
+    },
+    addComment: function () {
     }
 };
 

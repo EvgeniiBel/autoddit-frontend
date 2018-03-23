@@ -16,33 +16,49 @@ function* fetchLinksList() {
     }
 }
 
-function* fetchCommentsForLink (action) {
+function* fetchCommentsForLink(action) {
     try {
-        const response = yield call(HttpApi.get, commentsURL);
-        yield put({type: types.LINKS_STATE_TYPES.SET_COMMENTS_FOR_LINK, payload:{metadata:action.payload, comments:response}});
+        const response = yield call(HttpApi.get, `${commentsURL}/${action.payload.id}`);
+        yield put({
+            type: types.LINKS_STATE_TYPES.SET_COMMENTS_FOR_LINK,
+            payload: {metadata: action.payload, comments: response}
+        });
     } catch (e) {
         yield put({type: types.LINKS_STATE_TYPES.GET_COMMENTS_FOR_LINK_FAILED, payload: e.message});
     }
 }
 
-function* voteForLink (action) {
+function* voteForLink(action) {
     try {
-        yield call(HttpApi.post, `${linkURL}/${action.payload.id}`, {value:action.payload.value, login:action.payload.login});
-        yield put({type: types.LINKS_STATE_TYPES.VOTE_FOR_LINK_SUCCESS, payload:action.payload});
+        yield call(HttpApi.post, `${linkURL}/${action.payload.id}`, {
+            value: action.payload.value,
+            login: action.payload.login
+        });
+        yield put({type: types.LINKS_STATE_TYPES.VOTE_FOR_LINK_SUCCESS, payload: action.payload});
     } catch (e) {
         yield put({type: types.LINKS_STATE_TYPES.VOTE_FOR_LINK_FAILED, payload: e.message});
     }
 }
 
-function* addLink (action) {
+function* addLink(action) {
     try {
-        console.log('addLink');
-        console.log(action);
         const newLink = yield call(HttpApi.post, `${linksURL}`, action.payload);
-        yield put({type: types.LINKS_STATE_TYPES.ADD_LINK_SUCCESS, payload:newLink});
+        yield put({type: types.LINKS_STATE_TYPES.ADD_LINK_SUCCESS, payload: newLink});
         //set
     } catch (e) {
         yield put({type: types.LINKS_STATE_TYPES.ADD_LINK_FAILED, payload: e.message});
+    }
+}
+
+function* addComment(action) {
+    try {
+        console.log('addComment');
+        console.log(action);
+        const newComment = yield call(HttpApi.post, `${commentsURL}`, action.payload);
+        yield put({type: types.LINKS_STATE_TYPES.ADD_COMMENT_SUCCESS, payload: {comment:newComment, metadata:action.payload}});
+        //set
+    } catch (e) {
+        yield put({type: types.LINKS_STATE_TYPES.ADD_COMMENT_FAILED, payload: e.message});
     }
 }
 
@@ -51,6 +67,7 @@ function* linksSaga() {
     yield takeEvery(types.LINKS_STATE_TYPES.GET_COMMENTS_FOR_LINK, fetchCommentsForLink);
     yield takeEvery(types.LINKS_STATE_TYPES.VOTE_FOR_LINK, voteForLink);
     yield takeEvery(types.LINKS_STATE_TYPES.ADD_LINK, addLink);
+    yield takeEvery(types.LINKS_STATE_TYPES.ADD_COMMENT, addComment);
 }
 
 export default linksSaga;
