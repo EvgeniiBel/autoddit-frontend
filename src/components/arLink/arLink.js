@@ -57,6 +57,7 @@ class ArLink extends PureComponent {
                     </div>
                     <div className="ar-link__wrapper__comments">
                         <a onClick={this.toggleComments}>{this.props.commentsCount} comments </a>
+                        <a onClick={this.addComment}>Add comment</a>
                     </div>
                     {!!this.props.comments && this.props.comments.length > 0 &&
                     (<div className={cn('ar-link__wrapper__children', {'expanded': this.state.isExpanded})}>
@@ -86,7 +87,8 @@ ArLink.propTypes = {
     votesCount:PropTypes.number,
     link: PropTypes.string,
     vote: PropTypes.func,
-    getComments: PropTypes.func
+    getComments: PropTypes.func,
+    addComment: PropTypes.func
 };
 
 ArLink.defaultProps = {
@@ -102,6 +104,8 @@ ArLink.defaultProps = {
     vote: function () {
     },
     getComments: function () {
+    },
+    addComment: function () {
     }
 };
 

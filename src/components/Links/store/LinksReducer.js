@@ -25,6 +25,12 @@ export default function (state = new LinksState(), action) {
             list2[index].votes[login] = value;
             list2[index].votesCount = sum(list2[index].votes);
             return Object.assign({}, state, {linksList: list2});
+        case types.LINKS_STATE_TYPES.ADD_LINK_SUCCESS:
+            console.log(action);
+            let list3 = [...state.linksList];
+            list3.push(action.payload);
+            console.log(list3);
+            return Object.assign({}, state, {linksList: list3});
         default:
             return state;
     }

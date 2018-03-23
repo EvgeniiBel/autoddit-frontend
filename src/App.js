@@ -6,14 +6,18 @@ import {applyMiddleware, createStore, combineReducers} from 'redux';
 import createSagaMiddleware from 'redux-saga';
 
 import {Layout} from './components/Layout';
-import {Links, LinksReducer, LinksSaga} from './components/Links';
-import {Login, LoginReducer} from './components/Login';
+import {LinksReducer, LinksSaga} from './components/Links';
+import {LoginReducer} from './components/Login';
 import {Main} from './components/Main';
+
+import { reducer as formReducer } from 'redux-form'
+
 
 //create store
 const AppReducers = combineReducers({
     LinksReducer,
-    LoginReducer
+    LoginReducer,
+    form: formReducer
 });
 
 const sagaMiddleware = createSagaMiddleware();

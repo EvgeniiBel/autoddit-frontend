@@ -38,7 +38,7 @@ class Login extends Component {
     render() {
         return (
             <div className="login">
-                <h1>Please, input your name for continue</h1>
+                <h1>Please, input your name to continue</h1>
                 <input type="text" onInput={this.inputName}/>
                 <button disabled={!this.state.isActiveSave} onClick={this.setLogin}>Save</button>
                 {this.props.login}
