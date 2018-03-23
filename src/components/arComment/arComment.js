@@ -47,7 +47,7 @@ class ArComment extends PureComponent {
                         {this.props.commentText}
                     </div>
                     <div className="ar-comment__wrapper__add-button">
-                        <a onClick={() => this.props.addComment({linkId: this.props.linkId,id:this.props.id, parentWay:this.props.parentWay})}>Add comment</a>
+                        <a onClick={() => this.props.addComment({linkId: this.props.linkId,id:this.props.id, parentWay:this.props.parentWay})}>Reply</a>
                     </div>
                     {!!this.props.comments && this.props.comments.length > 0 &&
                     (<div className={cn('ar-link__wrapper__children', {'expanded':this.state.isExpanded})}>

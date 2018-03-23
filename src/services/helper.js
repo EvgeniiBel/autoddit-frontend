@@ -10,7 +10,7 @@ export function sumVotes(obj) {
 export function getParentByParentWay(parent, parentWay) {
     let way = parentWay.split(waySeparator);
     way.forEach(wayId => {
-        parent = parent.find((item) => item.id.toString() === wayId);
+        parent = parent.comments.find((item) => item.id.toString() === wayId);
     });
     return parent;
 }

@@ -8,7 +8,6 @@ const commentsURL = '/comments';
 
 function* fetchLinksList() {
     try {
-        console.log('fetchLinksList');
         const response = yield call(HttpApi.get, linksURL);
         yield put({type: types.LINKS_STATE_TYPES.SET_LINKS_LIST, payload: response});
     } catch (e) {

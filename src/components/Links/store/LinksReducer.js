@@ -9,7 +9,6 @@ export default function (state = new LinksState(), action) {
             return Object.assign({}, state, {inProgress: action.payload});
 
         case types.LINKS_STATE_TYPES.SET_LINKS_LIST:
-            console.log(action.payload);
             return Object.assign({}, state, {linksList: action.payload});
 
         case types.LINKS_STATE_TYPES.SET_COMMENTS_FOR_LINK:

@@ -66,12 +66,29 @@
       font-weight: normal;
       font-size: 13px;
       font-family: Arial,sans-serif;
-      line-height: 1.5em;
       max-width: 55em;
       margin-top: 5px;
-      margin-bottom: 5px;
       white-space: pre-wrap;
       text-align: left;
+    }
+
+    &__add-button {
+      border: none;
+      padding-right: 4px;
+      line-height: 1.6em;
+      font-size: x-small;
+
+      a {
+        color: $ar-link-grey-color;
+        font-weight: bold;
+        padding: 0 1px;
+        font-size: x-small;
+
+        &:hover {
+          text-decoration: underline;
+          cursor: pointer;
+        }
+      }
     }
   }
 }
