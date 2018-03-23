@@ -47,10 +47,14 @@ class ArComment extends PureComponent {
                         {this.props.commentText}
                     </div>
                     <div className="ar-comment__wrapper__add-button">
+                        <a onClick={() => this.props.addComment({linkId: this.props.linkId,id:this.props.id, parentWay:this.props.parentWay})}>Add comment</a>
                     </div>
                     {!!this.props.comments && this.props.comments.length > 0 &&
                     (<div className={cn('ar-link__wrapper__children', {'expanded':this.state.isExpanded})}>
                         {this.props.comments.map((comment, index) => <ArComment key={`${comment.username}${index}`}
+                                                                                id={comment.id}
+                                                                                linkId={comment.linkId}
+                                                                                parentWay={comment.parentWay}
                                                                                 username={comment.username}
                                                                                 commentText={comment.commentText}
                                                                                 comments={comment.comments}
@@ -65,6 +69,9 @@ class ArComment extends PureComponent {
 }
 
 ArComment.propTypes = {
+    id:PropTypes.number,
+    linkId:PropTypes.number,
+    parentWay:PropTypes.string,
     username: PropTypes.string.isRequired,
     commentText:PropTypes.string.isRequired,
     submittedData: PropTypes.string,

@@ -17,7 +17,7 @@ class ArLink extends PureComponent {
         if (value === myVote) {
             value = 0;
         }
-        this.props.vote({value, id:this.props.id, login:this.props.login, index:this.props.index});
+        this.props.vote({value, id: this.props.id, login: this.props.login, index: this.props.index});
     };
 
     toggleComments = () => {
@@ -61,10 +61,18 @@ class ArLink extends PureComponent {
                     </div>
                     {!!this.props.comments && this.props.comments.length > 0 &&
                     (<div className={cn('ar-link__wrapper__children', {'expanded': this.state.isExpanded})}>
-                        {this.props.comments.map((comment, index) => <ArComment key={`${comment.username}${index}`}
-                                                                                username={comment.username}
-                                                                                commentText={comment.commentText}
-                                                                                comments={comment.comments}/>)}
+                        {this.props.comments.map((comment, index) => (
+                            <ArComment key={`${comment.username}${index}`}
+                                       linkId={comment.linkId}
+                                       id={comment.id}
+                                       parentWay={comment.parentWay}
+                                       username={comment.username}
+                                       commentText={comment.commentText}
+                                       comments={comment.comments}
+                                       addComment={(args) => {
+                                           console.log(args);
+                                           this.props.addCommentToComment(args.linkId, this.props.index, args.parentWay, args.id)
+                                       }}/>))}
                     </div>)
                     }
                 </div>
@@ -84,11 +92,12 @@ ArLink.propTypes = {
     comments: PropTypes.arrayOf(PropTypes.object),
     commentsCount: PropTypes.number,
     votes: PropTypes.object,
-    votesCount:PropTypes.number,
+    votesCount: PropTypes.number,
     link: PropTypes.string,
     vote: PropTypes.func,
     getComments: PropTypes.func,
-    addComment: PropTypes.func
+    addComment: PropTypes.func,
+    addCommentToComment: PropTypes.func
 };
 
 ArLink.defaultProps = {
@@ -97,7 +106,7 @@ ArLink.defaultProps = {
     submittedData: 'Jan 22, 2017 08:43',
     username: 'Charlie',
     votes: [],
-    votesCount:0,
+    votesCount: 0,
     link: '/12',
     comments: [],
     commentsCount: 2,
@@ -106,6 +115,9 @@ ArLink.defaultProps = {
     getComments: function () {
     },
     addComment: function () {
+    },
+    addCommentToComment: function () {
+
     }
 };
 

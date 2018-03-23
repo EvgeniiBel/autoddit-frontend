@@ -23,6 +23,7 @@ const mapDispatchToProps = dispatch => {
             dispatch({type: types.LINKS_STATE_TYPES.VOTE_FOR_LINK, payload});
         },
         addComment: (payload) => {
+            console.log(payload);
             dispatch({type: types.LINKS_STATE_TYPES.ADD_COMMENT, payload});
         }
     }

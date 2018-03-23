@@ -48,6 +48,12 @@ class Main extends Component {
         });
     };
 
+    handleOpenWithComment = (linkId, linkIndex, parentWay, id) => {
+        console.log(linkId, linkIndex, parentWay, id);
+        parentWay = !!parentWay ? `${parentWay}/${id}` :`${id}`;
+        this.handleOpen(linkId, linkIndex, parentWay);
+    };
+
     handleClose = () => {
         this.setState({open: false});
     };
@@ -107,6 +113,7 @@ class Main extends Component {
                                 login={login}
                                 vote={voteForLink}
                                 addComment={this.handleOpen}
+                                addCommentToComment={this.handleOpenWithComment}
                                 getComments={getCommentsForLink}/> )}
                 </div>}
             </div>
