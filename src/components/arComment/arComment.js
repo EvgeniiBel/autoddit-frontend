@@ -32,7 +32,6 @@ class ArComment extends PureComponent {
 
     render() {
         let myVote = this.props.votes[this.props.login];
-        console.log(this.props.votes, this.props.login);
         return (
             <div className="ar-comment">
                 <div className="ar-comment__voiter">

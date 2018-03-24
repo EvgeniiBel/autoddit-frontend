@@ -8,9 +8,17 @@ export function sumVotes(obj) {
 }
 
 export function getParentByParentWay(parent, parentWay) {
-    let way = parentWay.split(waySeparator);
-    way.forEach(wayId => {
-        parent = parent.comments.find((item) => item.id.toString() === wayId);
-    });
+    if (parentWay) {
+        let way = parentWay.split(waySeparator);
+        way.forEach(wayId => {
+            parent = parent.comments.find((item) => item.id.toString() === wayId);
+        });
+    }
+    return parent;
+}
+
+export function getCommentByParentWay(parent, parentWay, id) {
+    parent = getParentByParentWay(parent, parentWay);
+    parent = parent.comments.find((comment) => comment.id.toString() === id.toString());
     return parent;
 }

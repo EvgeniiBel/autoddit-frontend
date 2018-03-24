@@ -19,11 +19,11 @@ function* fetchCommentsForLink(action) {
 
 function* voteForComment(action) {
     try {
-        yield call(HttpApi.post, `${commentURL}/${action.payload.id}`, {
+        let newComment = yield call(HttpApi.post, `${commentURL}/${action.payload.id}`, {
             value: action.payload.value,
             login: action.payload.login
         });
-        yield put({type: types.LINKS_STATE_TYPES.VOTE_FOR_COMMENT_SUCCESS, payload: action.payload});
+        yield put({type: types.LINKS_STATE_TYPES.VOTE_FOR_COMMENT_SUCCESS, payload: {comment:newComment, metadata:action.payload}});
     } catch (e) {
         yield put({type: types.LINKS_STATE_TYPES.VOTE_FOR_LINK_FAILED, payload: e.message});
     }
