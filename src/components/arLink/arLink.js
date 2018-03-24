@@ -69,10 +69,18 @@ class ArLink extends PureComponent {
                                        username={comment.username}
                                        commentText={comment.commentText}
                                        comments={comment.comments}
-                                       addComment={(args) => {
-                                           console.log(args);
-                                           this.props.addCommentToComment(args.linkId, this.props.index, args.parentWay, args.id)
-                                       }}/>))}
+                                       votes={comment.votes}
+                                       votesCount={comment.votesCount}
+                                       login={this.props.login}
+                                       vote={(args) => this.props.voteForComment({
+                                           value: args.value,
+                                           id: args.id,
+                                           linkId: args.linkId,
+                                           parentWay:args.parentWay,
+                                           login: this.props.login,
+                                           index: this.props.index
+                                       })}
+                                       addComment={(args) => this.props.addCommentToComment(args.linkId, this.props.index, args.parentWay, args.id)}/>))}
                     </div>)
                     }
                 </div>
@@ -95,6 +103,7 @@ ArLink.propTypes = {
     votesCount: PropTypes.number,
     link: PropTypes.string,
     vote: PropTypes.func,
+    voteForComment: PropTypes.func,
     getComments: PropTypes.func,
     addComment: PropTypes.func,
     addCommentToComment: PropTypes.func
@@ -105,12 +114,14 @@ ArLink.defaultProps = {
     imageUrl: null,
     submittedData: 'Jan 22, 2017 08:43',
     username: 'Charlie',
-    votes: [],
+    votes: {},
     votesCount: 0,
     link: '/12',
     comments: [],
     commentsCount: 2,
     vote: function () {
+    },
+    voteForComment: function () {
     },
     getComments: function () {
     },

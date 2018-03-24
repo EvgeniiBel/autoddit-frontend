@@ -26,26 +26,17 @@ export default function (state = new LinksState(), action) {
         case types.LINKS_STATE_TYPES.ADD_LINK_SUCCESS:
             let list3 = [...state.linksList];
             list3.push(action.payload);
-            console.log(list3);
             return Object.assign({}, state, {linksList: list3});
 
         case types.LINKS_STATE_TYPES.ADD_COMMENT_SUCCESS:
-            console.log('link reducer');
-            console.log(action.payload);
-
             let list4 = [...state.linksList];
             let {linkIndex, parentWay} = action.payload.metadata;
             let parent = list4[linkIndex];
             parent.commentsCount++;
-
-            console.log('link');
-            console.log(parent);
             if (!!parentWay) {
                 parent = getParentByParentWay(parent, parentWay);
-
-                console.log('parent');
-                console.log(parent);
             }
+            !parent.comments && (parent.comments = []);
             parent.comments.push(action.payload.comment);
             return Object.assign({}, state, {linksList: list4});
         default:

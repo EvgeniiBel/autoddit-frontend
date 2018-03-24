@@ -6,7 +6,7 @@ import {applyMiddleware, createStore, combineReducers} from 'redux';
 import createSagaMiddleware from 'redux-saga';
 
 import {Layout} from './components/Layout';
-import {LinksReducer, LinksSaga} from './components/Links';
+import {LinksReducer, LinksSaga, CommentsSaga} from './components/Links';
 import {LoginReducer} from './components/Login';
 import {Main} from './components/Main';
 
@@ -27,7 +27,7 @@ const store = createStore(
     applyMiddleware(sagaMiddleware)
 );
 sagaMiddleware.run(LinksSaga);
-
+sagaMiddleware.run(CommentsSaga);
 
 class App extends Component {
     render() {

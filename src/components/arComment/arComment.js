@@ -12,9 +12,15 @@ class ArComment extends PureComponent {
         };
     }
 
-    vote = (status) => {
-        this.setState({
-            voteStatus: status !== this.state.voteStatus ? status : null
+    vote = (value, myVote) => {
+        if (value === myVote) {
+            value = 0;
+        }
+        this.props.vote({
+            value, id:
+            this.props.id,
+            linkId: this.props.linkId,
+            parentWay: this.props.parentWay
         });
     };
 
@@ -25,15 +31,19 @@ class ArComment extends PureComponent {
     };
 
     render() {
+        let myVote = this.props.votes[this.props.login];
+        console.log(this.props.votes, this.props.login);
         return (
             <div className="ar-comment">
                 <div className="ar-comment__voiter">
                     <div className={cn('arrow up', {
-                        'upmod': this.state.voteStatus === 'up'
-                    })} onClick={() => this.vote('up')}></div>
+                        'upmod': myVote === 1
+                    })} onClick={() => this.vote(1, myVote)}>
+                    </div>
                     <div className={cn('arrow down', {
-                        'downmod': this.state.voteStatus === 'down'
-                    })} onClick={() => this.vote('down')}></div>
+                        'downmod': myVote === -1
+                    })} onClick={() => this.vote(-1, myVote)}>
+                    </div>
                 </div>
                 <div className="ar-comment__wrapper">
                     <div className="ar-comment__wrapper__username">
@@ -41,7 +51,7 @@ class ArComment extends PureComponent {
                             <span onClick={this.toggleComment}>{this.state.isExpanded ? '[–]' : '[+]'}</span>
                         </div>
                         <div className="username">{this.props.username}</div>
-                        <div className="comment-score">{this.props.score}</div>
+                        <div className="comment-score">{this.props.votesCount} point(s)</div>
                     </div>
                     <div className="ar-comment__wrapper__commentText">
                         {this.props.commentText}
@@ -53,11 +63,14 @@ class ArComment extends PureComponent {
                     (<div className={cn('ar-link__wrapper__children', {'expanded':this.state.isExpanded})}>
                         {this.props.comments.map((comment, index) => <ArComment key={`${comment.username}${index}`}
                                                                                 id={comment.id}
+                                                                                login={this.props.login}
                                                                                 linkId={comment.linkId}
                                                                                 parentWay={comment.parentWay}
                                                                                 username={comment.username}
                                                                                 commentText={comment.commentText}
                                                                                 comments={comment.comments}
+                                                                                votes={comment.votes}
+                                                                                votesCount={comment.votesCount}
                                                                                 vote={this.props.vote}
                                                                                 addComment={this.props.addComment}/>)}
                     </div>)
@@ -75,8 +88,9 @@ ArComment.propTypes = {
     username: PropTypes.string.isRequired,
     commentText:PropTypes.string.isRequired,
     submittedData: PropTypes.string,
-    score:PropTypes.number,
+    votesCount:PropTypes.number,
     comments: PropTypes.arrayOf(PropTypes.object),
+    votes: PropTypes.object,
     vote: PropTypes.func,
     addComment: PropTypes.func
 };
@@ -84,8 +98,9 @@ ArComment.propTypes = {
 ArComment.defaultProps = {
     username: 'CharlieComment',
     commentText: 'Default comments for test',
-    comments: null,
-    score:null,
+    comments: [],
+    votesCount:0,
+    votes:{},
     vote: function () {
     },
     addComment: function () {

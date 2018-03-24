@@ -86,7 +86,7 @@ class Main extends Component {
     };
 
     render() {
-        let {login, links, voteForLink, getCommentsForLink} = this.props;
+        let {login, links, voteForLink, voteForComment, getCommentsForLink} = this.props;
         return (
             <div className="main">
                 <Dialog
@@ -112,6 +112,7 @@ class Main extends Component {
                                 index={index}
                                 login={login}
                                 vote={voteForLink}
+                                voteForComment={voteForComment}
                                 addComment={this.handleOpen}
                                 addCommentToComment={this.handleOpenWithComment}
                                 getComments={getCommentsForLink}/> )}
