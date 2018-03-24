@@ -1,8 +1,12 @@
 .layout {
-  .layout__navbar {
+  &__navbar {
     background-color: #222;
     padding: 20px;
     color: white;
     text-align: center;
+  }
+
+  &__content {
+    //padding: 10px;
   }
 }

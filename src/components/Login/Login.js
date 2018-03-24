@@ -1,11 +1,16 @@
 import React, {Component} from 'react';
+import {Card, CardActions, CardTitle, CardText} from 'material-ui/Card';
+import FlatButton from 'material-ui/FlatButton';
+import TextField from 'material-ui/TextField';
+
+import './Login.css';
 
 class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isActiveSave:false,
-            login:null
+            isActiveSave: false,
+            login: null
         };
     }
 
@@ -18,13 +23,13 @@ class Login extends Component {
             });
             if (!this.state.isActiveSave) {
                 this.setState({
-                    isActiveSave:true
+                    isActiveSave: true
                 });
             }
         } else {
             if (this.state.isActiveSave) {
                 this.setState({
-                    isActiveSave:false
+                    isActiveSave: false
                 });
             }
         }
@@ -38,10 +43,23 @@ class Login extends Component {
     render() {
         return (
             <div className="login">
-                <h1>Please, input your name to continue</h1>
-                <input type="text" onInput={this.inputName}/>
-                <button disabled={!this.state.isActiveSave} onClick={this.setLogin}>Save</button>
-                {this.props.login}
+                <Card>
+                    <CardTitle title="Login Page" subtitle="Please, input your name to continue"/>
+                    <CardText>
+                        <TextField
+                            hintText="Type your name..."
+                            floatingLabelText="User name"
+                            fullWidth={true}
+                            multiLine={true}
+                            onChange={this.inputName}
+                        />
+                    </CardText>
+                    <CardActions>
+                        <FlatButton disabled={!this.state.isActiveSave}
+                                    onClick={this.setLogin}
+                                    label="Log in"/>
+                    </CardActions>
+                </Card>
             </div>
         );
 

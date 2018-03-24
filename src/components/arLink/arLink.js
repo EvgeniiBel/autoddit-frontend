@@ -21,7 +21,7 @@ class ArLink extends PureComponent {
     };
 
     toggleComments = () => {
-        if (this.props.comments.length !== this.props.commentsCount) {
+        if (this.props.commentsCount > 0 && !this.state.isExpanded) {
             this.props.getComments({id: this.props.id, index: this.props.index});
         }
         this.setState({
@@ -46,7 +46,7 @@ class ArLink extends PureComponent {
                     </div>
                 </div>
                 <div className={cn('ar-link__image', {empty: !this.props.imageUrl})}>
-                    {!this.props.imageUrl && <img src={this.props.imageUrl}/>}
+                    {this.props.imageUrl && <img src={this.props.imageUrl}/>}
                 </div>
                 <div className="ar-link__wrapper">
                     <div className="ar-link__wrapper__title">
@@ -56,7 +56,7 @@ class ArLink extends PureComponent {
                         Submitted on {this.props.submittedData} by {this.props.username}
                     </div>
                     <div className="ar-link__wrapper__comments">
-                        <a onClick={this.toggleComments}>{this.props.commentsCount} comments </a>
+                        <a onClick={this.toggleComments} className={cn({'empty':this.props.commentsCount === 0})}>{this.props.commentsCount} comments </a>
                         <a onClick={() => this.props.addComment(this.props.id, this.props.index)}>Add comment</a>
                     </div>
                     {!!this.props.comments && this.props.comments.length > 0 &&

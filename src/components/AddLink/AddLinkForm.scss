@@ -1,0 +1,10 @@
+.add-link-form {
+
+  &__actions {
+    margin-top: 10px;
+    text-align: right;
+    & > div:not(:last-child) {
+      margin-right: 10px;
+    }
+  }
+}
